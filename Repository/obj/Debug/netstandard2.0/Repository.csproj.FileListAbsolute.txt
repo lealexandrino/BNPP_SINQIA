@@ -1,0 +1,9 @@
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfoInputs.cache
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfo.cs
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\bin\Debug\netstandard2.0\Repository.deps.json
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\bin\Debug\netstandard2.0\Repository.dll
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\obj\Debug\netstandard2.0\Repository.csprojAssemblyReference.cache
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\bin\Debug\netstandard2.0\Repository.pdb
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\obj\Debug\netstandard2.0\Repository.dll
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\obj\Debug\netstandard2.0\Repository.pdb
+C:\Users\Leandro\source\repos\lealexandrino\BNPP_SINQIA\Repository\obj\Debug\netstandard2.0\Repository.csproj.CoreCompileInputs.cache
