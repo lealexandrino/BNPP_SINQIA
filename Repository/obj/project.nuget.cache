@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9BTINsHv5QIT364CCgeAZLm2XNNo+hhxCx+OukT7xrnh0KMCE9dyx6eDRbtugtE5kUw5A22thWzEFgi+7LU0kg==",
+  "dgSpecHash": "dCOU/AM2k+DTrBOuAy2qa6XYL13Q8NP/jF641fwq23s4emtrLwL/Wr244IaDZmCnf3bff4vxeVFr2Mkq5ozaWg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Leandro\\source\\repos\\lealexandrino\\BNPP_SINQIA\\Repository\\Repository.csproj",
   "expectedPackageFiles": [
@@ -32,7 +32,7 @@
     "C:\\Users\\Leandro\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.collections.immutable\\1.5.0\\system.collections.immutable.1.5.0.nupkg.sha512",
-    "C:\\Users\\Leandro\\.nuget\\packages\\system.componentmodel.annotations\\4.5.0\\system.componentmodel.annotations.4.5.0.nupkg.sha512",
+    "C:\\Users\\Leandro\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.data.sqlclient\\4.5.1\\system.data.sqlclient.4.5.1.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.diagnostics.debug\\4.0.11\\system.diagnostics.debug.4.0.11.nupkg.sha512",

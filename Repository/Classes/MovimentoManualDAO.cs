@@ -34,15 +34,30 @@ namespace Repository.Classes
                             select new MovimentoManual
                             {
                                 CodCosif = m.CodCosif,
-                                CodProduto = m.CodCosif,
+                                CodProduto = m.CodProduto,
                                 DatAno = m.DatAno,
                                 DatMes = m.DatMes,
                                 DatMovimento = m.DatMovimento,
                                 DesDescricao = m.DesDescricao,
                                 NumLancamento = m.NumLancamento,
                                 ValValor = m.ValValor,
-                                DescricaoProduto = p.DesProduto
+                                DesProduto = p.DesProduto
                             }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public List<MovimentoManual> ListaMovimentosProcedure()
+        {
+            try
+            {
+                var movimentos = _context.MovimentoManual.FromSql("GetMovimentosManuais").ToList();
+
+                return movimentos;
             }
             catch (Exception ex)
             {
@@ -53,11 +68,20 @@ namespace Repository.Classes
 
         public MovimentoManual ObterMovimento(string codProduto, string codCosif, decimal mes, decimal ano, decimal numeroLancamento)
         {
-            return _context.MovimentoManual.Where(p => p.CodProduto == codProduto.Trim() 
-                                                    && p.CodCosif == codCosif.Trim()
-                                                    && p.DatMes == mes
-                                                    && p.DatAno == ano
-                                                    && p.NumLancamento == numeroLancamento).FirstOrDefault();
+            try
+            {
+                return _context.MovimentoManual.Where(p => p.CodProduto == codProduto.Trim()
+                                        && p.CodCosif == codCosif.Trim()
+                                        && p.DatMes == mes
+                                        && p.DatAno == ano
+                                        && p.NumLancamento == numeroLancamento).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
         }
 
         public void InsereMovimento(MovimentoManual _movimentoManual)

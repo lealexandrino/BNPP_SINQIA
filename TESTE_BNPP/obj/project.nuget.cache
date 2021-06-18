@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "W62otrAR8Gl2WXopGe3DwX4qBbgN8GRt0/pPn0LQAkWLt+J3z1WVeJj7x0Nkg5l0a8WuPqLlZu20HhshokzS5g==",
+  "dgSpecHash": "0nVCzo2HBr0A0ytuKEYSVy9eYMjww+gcyWMbK4fJvKGktaFUojp2c52jCg4U8vqX7y7K8OlscDdSueti+V1JGA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Leandro\\source\\repos\\lealexandrino\\BNPP_SINQIA\\TESTE_BNPP\\TESTE_BNPP.csproj",
   "expectedPackageFiles": [
@@ -211,7 +211,7 @@
     "C:\\Users\\Leandro\\.nuget\\packages\\system.collections.immutable\\1.5.0\\system.collections.immutable.1.5.0.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.collections.specialized\\4.3.0\\system.collections.specialized.4.3.0.nupkg.sha512",
-    "C:\\Users\\Leandro\\.nuget\\packages\\system.componentmodel.annotations\\4.5.0\\system.componentmodel.annotations.4.5.0.nupkg.sha512",
+    "C:\\Users\\Leandro\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.composition\\1.0.31\\system.composition.1.0.31.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.composition.attributedmodel\\1.0.31\\system.composition.attributedmodel.1.0.31.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.composition.convention\\1.0.31\\system.composition.convention.1.0.31.nupkg.sha512",

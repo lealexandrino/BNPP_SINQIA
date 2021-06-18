@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain
 {
@@ -17,7 +18,7 @@ namespace Domain
 
         public ProdutoCosif CodCosifNavigation { get; set; }
 
-
-        public string DescricaoProduto { get; set; }
+        [NotMapped]
+        public string DesProduto { get; set; }
     }
 }

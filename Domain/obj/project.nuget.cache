@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "plbvEnDlkCsl8FOe6WBVQVCvWMekK3JhhNFCiuQhG7ppeYHq5SgfO8zBh2VjdgA+oQm6SDV40v2h0lCUwzHfCw==",
+  "dgSpecHash": "O4pANmwpm8foOIVG61/WKBF7XE/BV7nuyke4VqB0owhdUiMqYO6Q/eqpWMHdkDiEqTR3CyioVyuVlfpPXaYcng==",
   "success": true,
   "projectFilePath": "C:\\Users\\Leandro\\source\\repos\\lealexandrino\\BNPP_SINQIA\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Leandro\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\Leandro\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -33,8 +33,6 @@ namespace TESTE_BNPP
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<DB_BNPPContext>(opcoes => opcoes.UseSqlServer(Configuration.GetConnectionString("ConexaoDB")));
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

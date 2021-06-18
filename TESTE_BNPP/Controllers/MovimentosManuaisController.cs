@@ -17,7 +17,8 @@ namespace TESTE_BNPP.Controllers
         public async Task<IActionResult> Index()
         {
             MovimentoManualDAO model = new MovimentoManualDAO();
-            return View(model.ListaMovimentosJoin());
+            //return View(model.ListaMovimentosJoin());
+            return View(model.ListaMovimentosProcedure());
         }
 
         // GET: MovimentosManuais/Create
