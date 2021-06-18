@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Repository.Models;
 using Repository.Classes;
 using Domain;
 
@@ -13,24 +10,19 @@ namespace TESTE_BNPP.Controllers
 {
     public class ProdutoCosifsController : Controller
     {
-        private readonly DB_BNPPContext _context;
-
-        public ProdutoCosifsController(DB_BNPPContext context)
-        {
-            _context = context;
-        }
-
         // GET: ProdutoCosifs
         public async Task<IActionResult> Index()
         {
-            var dB_BNPPContext = _context.ProdutoCosif.Include(p => p.CodProdutoNavigation);
-            return View(await dB_BNPPContext.ToListAsync());
+            ProdutoCosifsDAO model = new ProdutoCosifsDAO();
+            return View(model.ListaProdutosCosifs());
         }
 
         // GET: ProdutoCosifs/Create
         public IActionResult Create()
         {
-            ViewData["CodProduto"] = new SelectList(_context.Produto, "CodProduto", "CodProduto");
+            ProdutosDAO modelProduto = new ProdutosDAO();
+            ViewData["CodProduto"] = new SelectList(modelProduto.ListaProdutos(), "CodProduto", "DesProduto");
+
             return View();
         }
 
@@ -39,32 +31,39 @@ namespace TESTE_BNPP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CodProduto,CodCosif,CodClassificacao,StaStatus")] ProdutoCosif produtoCosif)
+        public async Task<IActionResult> Create(ProdutoCosif produtoCosif)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(produtoCosif);
-                await _context.SaveChangesAsync();
+                ProdutoCosifsDAO model = new ProdutoCosifsDAO();
+                if (model.ObterProdutoCosif(produtoCosif.CodProduto, produtoCosif.CodCosif) == null)
+                {
+                    model.InsereProdutoCosif(produtoCosif);
+                }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CodProduto"] = new SelectList(_context.Produto, "CodProduto", "CodProduto", produtoCosif.CodProduto);
+
+            ProdutosDAO modelProduto = new ProdutosDAO();
+            ViewData["CodProduto"] = new SelectList(modelProduto.ListaProdutos(), "CodProduto", "DesProduto");
             return View(produtoCosif);
         }
 
         // GET: ProdutoCosifs/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(string codProduto, string codCosif)
         {
-            if (id == null)
+            if (codProduto == null || codCosif == null)
             {
                 return NotFound();
             }
 
-            var produtoCosif = await _context.ProdutoCosif.FindAsync(id);
+            ProdutoCosifsDAO model = new ProdutoCosifsDAO();
+            var produtoCosif = model.ObterProdutoCosif(codProduto, codCosif);
             if (produtoCosif == null)
             {
                 return NotFound();
             }
-            ViewData["CodProduto"] = new SelectList(_context.Produto, "CodProduto", "CodProduto", produtoCosif.CodProduto);
+            ProdutosDAO modelProduto = new ProdutosDAO();
+            ViewData["CodProduto"] = new SelectList(modelProduto.ListaProdutos(), "CodProduto", "DesProduto");
             return View(produtoCosif);
         }
 
@@ -73,23 +72,23 @@ namespace TESTE_BNPP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodProduto,CodCosif,CodClassificacao,StaStatus")] ProdutoCosif produtoCosif)
+        public async Task<IActionResult> Edit(string codProduto, string codCosif, ProdutoCosif produtoCosif)
         {
-            if (id != produtoCosif.CodCosif)
+            if (codProduto != produtoCosif.CodProduto || codCosif != produtoCosif.CodCosif)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                ProdutoCosifsDAO model = new ProdutoCosifsDAO();
                 try
                 {
-                    _context.Update(produtoCosif);
-                    await _context.SaveChangesAsync();
+                    model.AlteraProdutoCosif(produtoCosif);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!ProdutoCosifExists(produtoCosif.CodCosif))
+                    if (model.ObterProdutoCosif(produtoCosif.CodProduto, produtoCosif.CodCosif) == null)
                     {
                         return NotFound();
                     }
@@ -100,21 +99,21 @@ namespace TESTE_BNPP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CodProduto"] = new SelectList(_context.Produto, "CodProduto", "CodProduto", produtoCosif.CodProduto);
+            ProdutosDAO modelProduto = new ProdutosDAO();
+            ViewData["CodProduto"] = new SelectList(modelProduto.ListaProdutos(), "CodProduto", "DesProduto");
             return View(produtoCosif);
         }
 
         // GET: ProdutoCosifs/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string codProduto, string codCosif)
         {
-            if (id == null)
+            if (codProduto == null || codCosif == null)
             {
                 return NotFound();
             }
 
-            var produtoCosif = await _context.ProdutoCosif
-                .Include(p => p.CodProdutoNavigation)
-                .FirstOrDefaultAsync(m => m.CodCosif == id);
+            ProdutoCosifsDAO model = new ProdutoCosifsDAO();
+            var produtoCosif = model.ObterProdutoCosif(codProduto, codCosif);
             if (produtoCosif == null)
             {
                 return NotFound();
@@ -126,17 +125,20 @@ namespace TESTE_BNPP.Controllers
         // POST: ProdutoCosifs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(ProdutoCosif produtoCosif)
         {
-            var produtoCosif = await _context.ProdutoCosif.FindAsync(id);
-            _context.ProdutoCosif.Remove(produtoCosif);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            try
+            {
 
-        private bool ProdutoCosifExists(string id)
-        {
-            return _context.ProdutoCosif.Any(e => e.CodCosif == id);
+                ProdutoCosifsDAO model = new ProdutoCosifsDAO();
+                model.DeletaProdutoCosif(produtoCosif.CodProduto, produtoCosif.CodCosif);
+            }
+            catch (Exception)
+            {
+                //Pode ocorrer erro caso algum produto cosif esteja sendo usado no movimento manual
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

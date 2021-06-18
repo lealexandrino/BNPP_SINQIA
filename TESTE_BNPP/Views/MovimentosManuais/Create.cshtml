@@ -4,69 +4,90 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Cadastro</h2>
 
-<h4>MovimentoManual</h4>
+<h4>Movimento Manual</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="DatMes" class="control-label"></label>
+                <label asp-for="DatMes" class="control-label">Mês</label>
                 <input asp-for="DatMes" class="form-control" />
                 <span asp-validation-for="DatMes" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="DatAno" class="control-label"></label>
+                <label asp-for="DatAno" class="control-label">Ano</label>
                 <input asp-for="DatAno" class="form-control" />
                 <span asp-validation-for="DatAno" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="NumLancamento" class="control-label"></label>
-                <input asp-for="NumLancamento" class="form-control" />
-                <span asp-validation-for="NumLancamento" class="text-danger"></span>
+                <label asp-for="CodProduto" class="control-label">Código Produto</label>
+                <select id="codProduto" asp-for="CodProduto" class="form-control" asp-items="ViewBag.CodProduto"></select>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="CodProduto" class="control-label"></label>
-                <input asp-for="CodProduto" class="form-control" />
-                <span asp-validation-for="CodProduto" class="text-danger"></span>
+                <label asp-for="CodCosif" class="control-label">Código Cosif</label>
+                <select id="codCosif" asp-for="CodCosif" class="form-control" asp-items="ViewBag.CodCosif"></select>
+                <span asp-validation-for="CodCosif" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="CodCosif" class="control-label"></label>
-                <select asp-for="CodCosif" class ="form-control" asp-items="ViewBag.CodCosif"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ValValor" class="control-label"></label>
+                <label asp-for="ValValor" class="control-label"> Valor</label>
                 <input asp-for="ValValor" class="form-control" />
-                <span asp-validation-for="ValValor" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-12">
             <div class="form-group">
-                <label asp-for="DesDescricao" class="control-label"></label>
-                <input asp-for="DesDescricao" class="form-control" />
+                <label asp-for="DesDescricao" class="control-label">Descrição</label>
+                ​<textarea asp-for="DesDescricao" id="txtArea" class="form-control" rows="10" cols="70"></textarea>
                 <span asp-validation-for="DesDescricao" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="DatMovimento" class="control-label"></label>
-                <input asp-for="DatMovimento" class="form-control" />
-                <span asp-validation-for="DatMovimento" class="text-danger"></span>
+                <input id="submit" type="submit" value="Cadastrar" class="btn btn-default" />
             </div>
-            <div class="form-group">
-                <label asp-for="CodUsuarios" class="control-label"></label>
-                <input asp-for="CodUsuarios" class="form-control" />
-                <span asp-validation-for="CodUsuarios" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}*@
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $("#submit").click(function () {
+        if ($("#codCosif").val() == null) {
+            alert("Obrigatório o preenchimento do Cosif");
+        }
+    });
+
+    $("#codProduto").change(function () {
+        var selected = $("#codProduto").val();
+        if (selected != null) {
+            $.ajax({
+                url: '/MovimentosManuais/TrazCosifs',
+                type: 'POST',
+                data: { codProduto: $("#codProduto").val() },
+                success: function (_modelJson) {
+                    $("#codCosif").empty();
+                    for (linha = 0; linha < _modelJson.length; linha++) {
+                        $("#codCosif").append('<option value="' + _modelJson[linha].codCosif + '">' + _modelJson[linha].codCosif + '</option>');
+                    }
+                }
+            });
+        }
+    });
+</script>

@@ -13,22 +13,25 @@
     <thead>
         <tr>
             <th>
-                Codigo Produto
+                Mês
             </th>
             <th>
-                Codigo Cosif
+                Ano
             </th>
             <th>
-                Valor
+                Código Produto
+            </th>
+            <th>
+                Descrição Produto
+            </th>
+            <th>
+                Num. Lançamento
             </th>
             <th>
                 Descrição
             </th>
             <th>
-                Data Movimento
-            </th>
-            <th>
-                Usuario
+                Valor
             </th>
             <th></th>
         </tr>
@@ -36,30 +39,33 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodProduto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodCosif)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ValValor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DesDescricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DatMovimento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodUsuarios)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { codProduto = item.CodProduto, codCosif = item.CodCosif }) |
-                    @Html.ActionLink("Deletar", "Delete", new { codProduto = item.CodProduto, codCosif = item.CodCosif })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatMes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatAno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescricaoProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumLancamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DesDescricao)
+            </td>
+            <td>
+                R$ @Html.DisplayFor(modelItem => item.ValValor)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { codProduto = item.CodProduto.Trim(), codCosif = item.CodCosif.Trim(), mes = item.DatMes, ano = item.DatAno, numeroLancamento = item.NumLancamento }) |
+                @Html.ActionLink("Deletar", "Delete", new { codProduto = item.CodProduto.Trim(), codCosif = item.CodCosif.Trim(), mes = item.DatMes, ano = item.DatAno, numeroLancamento = item.NumLancamento })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

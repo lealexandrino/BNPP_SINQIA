@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Produtos Cosif</h2>
 
 <p>
     <a asp-action="Create">Novo Cadastro</a>
@@ -12,11 +12,17 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Código Classificação
+            <th>
+                Código Classificação
             </th>
-            <th>Status
+            <th>
+                Status
             </th>
-            <th>Código Produto
+            <th>
+                Código Produto
+            </th>
+            <th>
+                Código Cosif
             </th>
             <th></th>
         </tr>
@@ -31,11 +37,14 @@
                 @Html.DisplayFor(modelItem => item.StaStatus)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CodProdutoNavigation.CodProduto)
+                @Html.DisplayFor(modelItem => item.CodProduto)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CodCosif">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.CodCosif">Deletar</a>
+                @Html.DisplayFor(modelItem => item.CodCosif)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { codProduto = item.CodProduto.Trim(), codCosif = item.CodCosif.Trim() }) |
+                @Html.ActionLink("Deletar", "Delete", new { codProduto = item.CodProduto.Trim(), codCosif = item.CodCosif.Trim() })
             </td>
         </tr>
 }

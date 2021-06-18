@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Repository.Models;
 using Repository.Classes;
 using Domain;
 
@@ -13,17 +10,11 @@ namespace TESTE_BNPP.Controllers
 {
     public class ProdutosController : Controller
     {
-        private readonly DB_BNPPContext _context;
-
-        public ProdutosController(DB_BNPPContext context)
-        {
-            _context = context;
-        }
-
         // GET: Produtos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Produto.ToListAsync());
+            ProdutosDAO model = new ProdutosDAO();
+            return View(model.ListaProdutos());
         }
 
         // GET: Produtos/Create
@@ -37,26 +28,30 @@ namespace TESTE_BNPP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CodProduto,DesProduto,StaStatus")] Produto produto)
+        public async Task<IActionResult> Create(Produto produto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(produto);
-                await _context.SaveChangesAsync();
+                ProdutosDAO model = new ProdutosDAO();
+                if (model.ObterProduto(produto.CodProduto) == null)
+                {
+                    model.InsereProduto(produto);
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(produto);
         }
 
         // GET: Produtos/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(string codProduto)
         {
-            if (id == null)
+            if (codProduto == null)
             {
                 return NotFound();
             }
 
-            var produto = await _context.Produto.FindAsync(id);
+            ProdutosDAO model = new ProdutosDAO();
+            var produto = model.ObterProduto(codProduto);
             if (produto == null)
             {
                 return NotFound();
@@ -69,23 +64,23 @@ namespace TESTE_BNPP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CodProduto,DesProduto,StaStatus")] Produto produto)
+        public async Task<IActionResult> Edit(string codProduto, Produto produto)
         {
-            if (id != produto.CodProduto)
+            if (codProduto != produto.CodProduto)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                ProdutosDAO model = new ProdutosDAO();
                 try
                 {
-                    _context.Update(produto);
-                    await _context.SaveChangesAsync();
+                    model.AlteraProduto(produto);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!ProdutoExists(produto.CodProduto))
+                    if (model.ObterProduto(produto.CodProduto) == null)
                     {
                         return NotFound();
                     }
@@ -96,19 +91,20 @@ namespace TESTE_BNPP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             return View(produto);
         }
 
         // GET: Produtos/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string codProduto)
         {
-            if (id == null)
+            if (codProduto == null)
             {
                 return NotFound();
             }
 
-            var produto = await _context.Produto
-                .FirstOrDefaultAsync(m => m.CodProduto == id);
+            ProdutosDAO model = new ProdutosDAO();
+            var produto = model.ObterProduto(codProduto);
             if (produto == null)
             {
                 return NotFound();
@@ -120,17 +116,11 @@ namespace TESTE_BNPP.Controllers
         // POST: Produtos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string codProduto)
         {
-            var produto = await _context.Produto.FindAsync(id);
-            _context.Produto.Remove(produto);
-            await _context.SaveChangesAsync();
+            ProdutosDAO model = new ProdutosDAO();
+            model.DeletaProduto(codProduto);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ProdutoExists(string id)
-        {
-            return _context.Produto.Any(e => e.CodProduto == id);
         }
     }
 }

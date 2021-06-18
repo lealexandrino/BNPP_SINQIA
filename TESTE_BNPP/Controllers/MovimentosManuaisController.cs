@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Repository.Classes;
 using Domain;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace TESTE_BNPP.Controllers
 {
@@ -14,12 +17,20 @@ namespace TESTE_BNPP.Controllers
         public async Task<IActionResult> Index()
         {
             MovimentoManualDAO model = new MovimentoManualDAO();
-            return View(model.ListaMovimentos());
+            return View(model.ListaMovimentosJoin());
         }
 
         // GET: MovimentosManuais/Create
         public IActionResult Create()
         {
+            ProdutosDAO modelProduto = new ProdutosDAO();
+            var produtos = modelProduto.ListaProdutos();
+            ViewData["CodProduto"] = new SelectList(modelProduto.ListaProdutos(), "CodProduto", "DesProduto");
+
+            ProdutoCosifsDAO modelProdutoCosifs = new ProdutoCosifsDAO();
+            var cosifs = modelProdutoCosifs.ListaCosifsProduto(produtos.FirstOrDefault().CodProduto);
+            ViewData["CodCosif"] = new SelectList(cosifs, "CodCosif", "CodCosif");
+           
             return View();
         }
 
@@ -32,15 +43,30 @@ namespace TESTE_BNPP.Controllers
         {
             if (ModelState.IsValid)
             {
-                MovimentoManualDAO model = new MovimentoManualDAO();
-                model.InsereMovimento(movimentoManual);
-                return RedirectToAction(nameof(Index));
+                if (movimentoManual.CodCosif != null)
+                {
+                    MovimentoManualDAO model = new MovimentoManualDAO();
+                    if (model.ObterMovimento(movimentoManual.CodProduto, movimentoManual.CodCosif, movimentoManual.DatMes, movimentoManual.DatAno, movimentoManual.NumLancamento) == null)
+                    {
+                        model.InsereMovimento(movimentoManual);
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
+            ProdutosDAO modelProduto = new ProdutosDAO();
+            var produtos = modelProduto.ListaProdutos();
+            ViewData["CodProduto"] = new SelectList(modelProduto.ListaProdutos(), "CodProduto", "DesProduto");
+
+            ProdutoCosifsDAO modelProdutoCosifs = new ProdutoCosifsDAO();
+            var cosifs = modelProdutoCosifs.ListaCosifsProduto(produtos.FirstOrDefault().CodProduto);
+            ViewData["CodCosif"] = new SelectList(cosifs, "CodCosif", "CodCosif");
+
             return View(movimentoManual);
         }
 
         // GET: MovimentoManuals/Edit/5
-        public async Task<IActionResult> Edit(string codProduto, string codCosif)
+        public async Task<IActionResult> Edit(string codProduto, string codCosif, decimal mes, decimal ano, decimal numeroLancamento)
         {
             if (codProduto == null || codCosif == null)
             {
@@ -48,12 +74,20 @@ namespace TESTE_BNPP.Controllers
             }
 
             MovimentoManualDAO model = new MovimentoManualDAO();
-            var movimentoManual = model.ObterMovimento(codProduto, codCosif);
+            var movimentoManual = model.ObterMovimento(codProduto, codCosif, mes, ano, numeroLancamento);
             if (movimentoManual == null)
             {
                 return NotFound();
             }
-            //ViewData["CodCosif"] = new SelectList(_context.ProdutoCosif, "CodCosif", "CodCosif", movimentoManual.CodCosif);
+
+            ProdutosDAO modelProduto = new ProdutosDAO();
+            var produtos = modelProduto.ListaProdutos();
+            ViewData["CodProduto"] = new SelectList(modelProduto.ListaProdutos(), "CodProduto", "DesProduto");
+
+            ProdutoCosifsDAO modelProdutoCosifs = new ProdutoCosifsDAO();
+            var cosifs = modelProdutoCosifs.ListaCosifsProduto(produtos.FirstOrDefault().CodProduto);
+            ViewData["CodCosif"] = new SelectList(cosifs, "CodCosif", "CodCosif");
+
             return View(movimentoManual);
         }
 
@@ -78,7 +112,7 @@ namespace TESTE_BNPP.Controllers
                 }
                 catch (Exception ex)
                 {
-                    if (model.ObterMovimento(movimentoManual.CodProduto, movimentoManual.CodCosif) == null)
+                    if (model.ObterMovimento(movimentoManual.CodProduto, movimentoManual.CodCosif, movimentoManual.DatMes, movimentoManual.DatAno, movimentoManual.NumLancamento) == null)
                     {
                         return NotFound();
                     }
@@ -89,15 +123,28 @@ namespace TESTE_BNPP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["CodCosif"] = new SelectList(_context.ProdutoCosif, "CodCosif", "CodCosif", movimentoManual.CodCosif);
+
+            ProdutosDAO modelProduto = new ProdutosDAO();
+            var produtos = modelProduto.ListaProdutos();
+            ViewData["CodProduto"] = new SelectList(modelProduto.ListaProdutos(), "CodProduto", "DesProduto");
+
+            ProdutoCosifsDAO modelProdutoCosifs = new ProdutoCosifsDAO();
+            var cosifs = modelProdutoCosifs.ListaCosifsProduto(produtos.FirstOrDefault().CodProduto);
+            ViewData["CodCosif"] = new SelectList(cosifs, "CodCosif", "CodCosif");
+
             return View(movimentoManual);
         }
 
         // GET: MovimentoManuals/Delete/5
-        public async Task<IActionResult> Delete(string codProduto, string codCosif)
+        public async Task<IActionResult> Delete(string codProduto, string codCosif, decimal mes, decimal ano, decimal numeroLancamento)
         {
+            if (codProduto == null || codCosif == null)
+            {
+                return NotFound();
+            }
+
             MovimentoManualDAO model = new MovimentoManualDAO();
-            var movimentoManual = model.ObterMovimento(codProduto, codCosif);
+            var movimentoManual = model.ObterMovimento(codProduto, codCosif, mes, ano, numeroLancamento);
             if (movimentoManual == null)
             {
                 return NotFound();
@@ -109,12 +156,23 @@ namespace TESTE_BNPP.Controllers
         // POST: MovimentoManuals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string codProduto, string codCosif)
+        public async Task<IActionResult> DeleteConfirmed(MovimentoManual movimentoManual)
         {
             MovimentoManualDAO model = new MovimentoManualDAO();
-            model.DeletaMovimento(codProduto, codCosif);
+            model.DeletaMovimento(movimentoManual.CodProduto, movimentoManual.CodCosif, movimentoManual.DatMes, movimentoManual.DatAno, movimentoManual.NumLancamento);
 
             return RedirectToAction(nameof(Index));
         }
+
+        #region Json
+        [HttpPost]
+        public JsonResult TrazCosifs(string codProduto)
+        {
+            ProdutoCosifsDAO modelProdutoCosifs = new ProdutoCosifsDAO();
+            var cosifs = modelProdutoCosifs.ListaCosifsProduto(codProduto);
+
+            return Json(cosifs);
+        }
+        #endregion
     }
 }

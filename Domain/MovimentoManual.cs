@@ -16,5 +16,8 @@ namespace Domain
         public string CodUsuarios { get; set; }
 
         public ProdutoCosif CodCosifNavigation { get; set; }
+
+
+        public string DescricaoProduto { get; set; }
     }
 }
