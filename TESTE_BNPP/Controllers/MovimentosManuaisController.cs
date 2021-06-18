@@ -17,8 +17,14 @@ namespace TESTE_BNPP.Controllers
         public async Task<IActionResult> Index()
         {
             MovimentoManualDAO model = new MovimentoManualDAO();
-            //return View(model.ListaMovimentosJoin());
-            return View(model.ListaMovimentosProcedure());
+
+            // Return desenvolvido para retornar com a lista obtida via procedure (ESTA FUNCIONANDO), porém não esta retornando com a descrição do produto dentro do mapping da tabela Mapeamentos Manuais.
+            // Precisaria de mais tempo para analisar o problema na estrutura dos mappings do Entity Framework e a estrutura montada nos relacionamentos do banco de dados.
+            // Se desejar testar com a procedure é apenas descomentar a linhas abaixo com o metodo 'ListaMovimentosProcedure' e comentar a com o metodo 'ListaMovimentosJoin'
+
+            //return View(model.ListaMovimentosProcedure());
+
+            return View(model.ListaMovimentosJoin());
         }
 
         // GET: MovimentosManuais/Create

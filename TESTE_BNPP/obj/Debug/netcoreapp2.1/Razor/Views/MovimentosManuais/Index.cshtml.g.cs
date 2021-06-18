@@ -63,7 +63,7 @@ using TESTE_BNPP.Models;
             WriteLiteral("\r\n<h2>Movimentos Manuais</h2>\r\n\r\n<p>\r\n    ");
             EndContext();
             BeginContext(129, 40, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1a2106ebfd384cb684d06d508f2c4ecf", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee9ccfb7adac4bed8e401817a20525b7", async() => {
                 BeginContext(152, 13, true);
                 WriteLiteral("Novo Cadastro");
                 EndContext();

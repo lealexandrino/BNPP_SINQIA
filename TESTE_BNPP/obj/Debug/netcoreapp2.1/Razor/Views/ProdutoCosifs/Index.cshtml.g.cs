@@ -63,7 +63,7 @@ using TESTE_BNPP.Models;
             WriteLiteral("\r\n<h2>Produtos Cosif</h2>\r\n\r\n<p>\r\n    ");
             EndContext();
             BeginContext(122, 40, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9bda9451ed8f4664bad73f6b1328561b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e98963d8b5cc44a8b74e79278f16e2e1", async() => {
                 BeginContext(145, 13, true);
                 WriteLiteral("Novo Cadastro");
                 EndContext();
