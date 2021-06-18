@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Domain.MovimentoManual>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Movimentos Manuais</h2>
+
+<p>
+    <a asp-action="Create">Novo Cadastro</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Codigo Produto
+            </th>
+            <th>
+                Codigo Cosif
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Descrição
+            </th>
+            <th>
+                Data Movimento
+            </th>
+            <th>
+                Usuario
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodProduto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodCosif)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValValor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DesDescricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatMovimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodUsuarios)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { codProduto = item.CodProduto, codCosif = item.CodCosif }) |
+                    @Html.ActionLink("Deletar", "Delete", new { codProduto = item.CodProduto, codCosif = item.CodCosif })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

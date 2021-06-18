@@ -1,0 +1,72 @@
+﻿@model Domain.MovimentoManual
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>MovimentoManual</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DatMes" class="control-label"></label>
+                <input asp-for="DatMes" class="form-control" />
+                <span asp-validation-for="DatMes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatAno" class="control-label"></label>
+                <input asp-for="DatAno" class="form-control" />
+                <span asp-validation-for="DatAno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumLancamento" class="control-label"></label>
+                <input asp-for="NumLancamento" class="form-control" />
+                <span asp-validation-for="NumLancamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodProduto" class="control-label"></label>
+                <input asp-for="CodProduto" class="form-control" />
+                <span asp-validation-for="CodProduto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodCosif" class="control-label"></label>
+                <select asp-for="CodCosif" class ="form-control" asp-items="ViewBag.CodCosif"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValValor" class="control-label"></label>
+                <input asp-for="ValValor" class="form-control" />
+                <span asp-validation-for="ValValor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DesDescricao" class="control-label"></label>
+                <input asp-for="DesDescricao" class="form-control" />
+                <span asp-validation-for="DesDescricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatMovimento" class="control-label"></label>
+                <input asp-for="DatMovimento" class="form-control" />
+                <span asp-validation-for="DatMovimento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodUsuarios" class="control-label"></label>
+                <input asp-for="CodUsuarios" class="form-control" />
+                <span asp-validation-for="CodUsuarios" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

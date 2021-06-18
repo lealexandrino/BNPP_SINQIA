@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Domain.Produto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Novo Cadastro</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Código
+            </th>
+            <th>
+                Descrição
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DesProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaStatus)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodProduto">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodProduto">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

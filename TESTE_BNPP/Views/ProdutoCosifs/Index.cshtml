@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Domain.ProdutoCosif>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Novo Cadastro</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Código Classificação
+            </th>
+            <th>Status
+            </th>
+            <th>Código Produto
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodClassificacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodProdutoNavigation.CodProduto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodCosif">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodCosif">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

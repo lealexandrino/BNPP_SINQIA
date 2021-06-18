@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -13,6 +14,14 @@ namespace Repository.Models
         public DB_BNPPContext(DbContextOptions<DB_BNPPContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DB_BNPP;");
+            }
         }
 
         public virtual DbSet<MovimentoManual> MovimentoManual { get; set; }
